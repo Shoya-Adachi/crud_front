@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    //「オブジェクトがnullである可能性がある」というエラーの対処で変更
+    //変更点
+    //"strict": true, => "strict": false,
+    //"strictPropertyInitialization": false, 追加
+    //"strictNullChecks": false,　追加
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    //
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "component/organisms"],
+  "exclude": ["node_modules"]
+}
