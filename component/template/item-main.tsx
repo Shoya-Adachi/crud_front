@@ -48,6 +48,9 @@ const ItemMain = () => {
       </Button>
       <Box sx={{ display: 'flex', flexDirection: 'row-reverse', mt: 4 }}>
         <SimpleButton
+          variant={'contained'}
+          fontSize={30}
+          size={'large'}
           label='新規登録'
           onClick={() => {
             router.push('form');

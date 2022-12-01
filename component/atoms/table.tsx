@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement, ReactElement, ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,9 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,19 +43,15 @@ export interface RowType {
   name: string;
   age: number;
   gender: string;
-  children?: React.ReactChild;
+  children?: ReactNode;
 }
 export interface TableProps {
+  children?: ReactElement;
   clientData: RowType[];
   header: ListType[];
 }
 
-const clickDelete = (id: number) => {
-  axios.delete(`http://127.0.0.1:3001/users/${id}`);
-  window.location.reload();
-};
-
-const Tables = ({ clientData, header }: TableProps) => {
+const Tables = ({ clientData, header, children }: TableProps) => {
   const router = useRouter();
 
   return (
@@ -79,11 +73,7 @@ const Tables = ({ clientData, header }: TableProps) => {
               <TableCell align='center'>{data.name}</TableCell>
               <TableCell align='center'>{data.gender}</TableCell>
               <TableCell align='center'>{data.age}</TableCell>
-              <TableCell align='center'>
-                <Button onClick={() => router.push(`/client/form?id=${data.id}`)}> 編集</Button>
-                <Button onClick={() => router.push(`/client/${data.id}`)}> 詳細</Button>
-                <Button onClick={clickDelete.bind(this, data.id)}>削除</Button>
-              </TableCell>
+              <TableCell align='center'>{cloneElement(children, { id: data.id })}</TableCell>
             </TableRow>
           ))}
         </TableBody>

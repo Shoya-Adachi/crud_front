@@ -3,8 +3,9 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
 import { useRouter } from 'next/router';
+import { Button } from '@mui/material';
+import axios from 'axios';
 
 export interface OptionType {
   label: string;
@@ -17,7 +18,7 @@ export interface OptionProps {
 
 const ITEM_HEIGHT = 48;
 
-const LongMenu = ({ options }: OptionProps) => {
+const LongMenu = (data) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -30,24 +31,23 @@ const LongMenu = ({ options }: OptionProps) => {
     setAnchorEl(null);
   };
 
-  // console.dir(options);
+  const clickDelete = (id: number) => {
+    axios.delete(`http://127.0.0.1:3001/users/${id}`);
+    window.location.reload();
+  };
 
   const router = useRouter();
 
   return (
     <div>
       <IconButton
-        aria-label='more'
-        id='long-button'
         aria-controls={open ? 'long-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
-        aria-haspopup='true'
         onClick={handleClick}
       >
         <MoreVertIcon />
       </IconButton>
       <Menu
-        id='long-menu'
         MenuListProps={{
           'aria-labelledby': 'long-button',
         }}
@@ -57,15 +57,15 @@ const LongMenu = ({ options }: OptionProps) => {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
+            width: 225,
           },
         }}
       >
-        {options.map((option) => (
-          <MenuItem key={option.label} onClick={option.onClick}>
-            {option.label}
-          </MenuItem>
-        ))}
+        <MenuItem>
+          <Button onClick={() => router.push(`/client/form?id=${data.id}`)}> 編集</Button>
+          <Button onClick={() => router.push(`/client/${data.id}`)}> 詳細</Button>
+          <Button onClick={clickDelete.bind(this, data.id)}>削除</Button>
+        </MenuItem>
       </Menu>
     </div>
   );

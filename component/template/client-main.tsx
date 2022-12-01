@@ -1,6 +1,6 @@
 import SimpleButton from '../atoms/button';
 import Title from '../atoms/title';
-import TablePagenation from '../organisms/tablepage';
+import TablePagenation from '../organisms/clienttable';
 import { Box } from '@mui/system';
 import { RowType } from '../atoms/table';
 import { ListType } from '../atoms/table';
@@ -50,6 +50,8 @@ const ClientMain = () => {
   useEffect(() => {
     getClient();
   }, [page]);
+
+  console.log(clientData);
 
   // serchClient => 検索フォーム内の値を取得し、変化するたびにその値を含むデータを持ってくる
   const serchClient = async () => {
