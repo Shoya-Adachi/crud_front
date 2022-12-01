@@ -32,7 +32,7 @@ const ClientMain = () => {
   const [clientData, setClientData] = useState<RowType[]>([]);
   const [maxPage, setMaxPage] = useState<number>(0);
 
-  // getClient => axios.get:apiを叩き、[ページごとのデータ] & [最大ページ数]を取得　　
+  // getClient => axios.get:apiを叩き、[ページごとのデータ] & [最大ページ数]を取得
   const getClient = async () => {
     const params = {
       page: page,
@@ -83,6 +83,9 @@ const ClientMain = () => {
         {/* SimpleButton => 新規登録画面へ遷移するためのコンポーネント */}
         <SimpleButton
           label='新規登録'
+          size={'large'}
+          fontSize={30}
+          variant={'outlined'}
           onClick={() => {
             router.push('/client/form');
           }}
