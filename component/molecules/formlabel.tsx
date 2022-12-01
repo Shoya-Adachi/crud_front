@@ -13,7 +13,7 @@ const FormLabel = ({ rows, text, setText }: FormlabelProps) => {
     <Grid container columnSpacing={8}>
       {rows.map((row) => (
         <Grid item key={row.label} xs={row.grid}>
-          <Form label={row.label} text={text} setText={setText} />
+          <Form label={row.label} state={text} setState={setText} />
         </Grid>
       ))}
     </Grid>
