@@ -1,6 +1,6 @@
 import SimpleButton from '../atoms/button';
 import Title from '../atoms/title';
-import TablePagenation from '../organisms/clienttable';
+import ClientTable from '../organisms/clienttable';
 import { Box } from '@mui/system';
 import { RowType } from '../atoms/table';
 import { ListType } from '../atoms/table';
@@ -109,7 +109,7 @@ const ClientMain = () => {
       </Box>
       <Box sx={{ mx: 'auto', mt: 5, maxWidth: 'auto' }}>
         {/* TablePagenation => テーブルリスト */}
-        <TablePagenation maxPage={maxPage} clientData={clientData} header={header} page={page} setPage={setPage} />
+        <ClientTable maxPage={maxPage} clientData={clientData} header={header} page={page} setPage={setPage} />
       </Box>
     </Box>
   );

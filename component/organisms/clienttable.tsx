@@ -14,8 +14,7 @@ interface TableProps {
   header: ListType[];
 }
 
-
-const TablePagenation = ({ clientData, header, page, setPage, maxPage }: types) => {
+const ClientTable = ({ clientData, header, page, setPage, maxPage }: types) => {
   const router = useRouter();
 
   return (
@@ -30,4 +29,4 @@ const TablePagenation = ({ clientData, header, page, setPage, maxPage }: types) 
   );
 };
 
-export default TablePagenation;
+export default ClientTable;

@@ -10,15 +10,17 @@ import Grid from '@mui/material/Grid';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../schema/formSchema';
 
 interface ClientType {
   user_id: string;
   name: string;
   gender: string;
-  age: number | string;
+  age: number;
 }
 
-const defaultValues: ClientType = { user_id: '', name: '', gender: 'female', age: '' };
+const defaultValues: ClientType = { user_id: '', name: '', gender: '女性', age: null };
 
 const Form = () => {
   const router = useRouter();
@@ -36,8 +38,14 @@ const Form = () => {
     );
   };
 
-  const { control, handleSubmit, setValue } = useForm({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ClientType>({
     defaultValues: defaultValues,
+    resolver: yupResolver(schema),
   });
 
   const formSubmitHandler = (data: ClientType) => {
@@ -83,7 +91,15 @@ const Form = () => {
             <Controller
               control={control}
               name='name'
-              render={({ field }): JSX.Element => <TextField {...field} label='名前' variant='outlined' />}
+              render={({ field }): JSX.Element => (
+                <TextField
+                  {...field}
+                  label='名前'
+                  variant='outlined'
+                  error={!!errors.name}
+                  helperText={errors.name && errors.name.message}
+                />
+              )}
             />
           </Grid>
 
@@ -108,7 +124,15 @@ const Form = () => {
             <Controller
               control={control}
               name='age'
-              render={({ field }): JSX.Element => <TextField {...field} label='年齢' variant='outlined' />}
+              render={({ field }): JSX.Element => (
+                <TextField
+                  {...field}
+                  label='年齢'
+                  variant='outlined'
+                  error={!!errors.age}
+                  helperText={errors.age && errors.age.message}
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
